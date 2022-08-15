@@ -1,0 +1,42 @@
+<%- include('./partials/head'); %>
+
+<table width="100%" border="0"  style="font-size: 10px;">
+  <tr>
+    <td  style="text-align: left;width:90px">email</td>
+    <td  style="text-align: left;"><%=email%> </td>
+  </tr>
+  <% if (c4ei_addr!="" &&c4ei_addr!=null){ %>
+  <tr>
+    <td  style="text-align: left;width:90px">address</td>
+    <td  style="text-align: left;" ><input type="text" id="txt_my_addr" name="txt_my_addr" value="<%=c4ei_addr%>" style="width: 230px;font-size: 9px;" readonly > </td>
+  </tr>
+  <tr>
+    <td  style="text-align: left;width:90px">c4ei</td>
+    <td  style="text-align: left;"><input type="text"  id="txt_my_balance" name="txt_my_balance" value="<%=c4ei_balance%>" style="width: 230px;font-size: 11px;" readonly > </td>
+  </tr>
+  <tr>
+    <td  style="text-align: left;width:90px">QR</td>
+    <td  style="text-align: left;">
+      <div>
+        <img src="<%=dataUrl%>" alt="qr"/>
+      </div>
+    </td>
+  </tr>  
+  <% } else { %>
+    <tr>
+      <td  colspan="2">
+        <a href="/address_generator">make address</a>
+      </td>
+    </tr>  
+  <% } %>
+  <tr>
+    <td  style="text-align: left;width:90px">POT </td>
+    <td  style="text-align: left;"><input type="text"  id="txt_pot_balance" name="txt_pot_balance" value="<%=pot%>" style="width: 230px;font-size: 11px;" readonly > </td>
+  </tr>
+  <tr>
+    <td style="height: 15px;"></td>
+    <td></td>
+  </tr>
+</table>
+
+<%- include('./partials/bottomnoprj'); %>
