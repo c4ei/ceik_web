@@ -67,7 +67,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.log(getCurTimestamp()+": app 178 - error");
+  console.log(getCurTimestamp()+": app 178 - error" + err);
   res.render('error',{'msg' :err});
   // res.render('msgpage', { title: 'oops', msg : '500 error '+err+''});
 });

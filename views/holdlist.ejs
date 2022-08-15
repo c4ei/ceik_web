@@ -34,10 +34,10 @@
         </script>
         <form id="mainfrom" name="mainfrom" method="post">
           <div style="color: #FFFFFF;">내홀드주소 : 
-          <input type="text" name="txt_address" id="txt_address" maxlength="60" style="width:250px;" > 
+          <input type="text" name="txt_address" id="txt_address" maxlength="60" style="width:250px;" value="<%=addr%>">
           <!-- onkeyup="if(window.event.keyCode==13){jsfn_myaddress();}" -->
           <a href="javascript:jsfn_myaddress();" style="color: #FFFFFF;">검색</a>
-          </div>
+        </div>
         </form>
         <table class="table table-striped custom-table">
           <thead>
@@ -51,17 +51,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row">
-                <td> 1</td>
-                <td>address</td>
-                <td>token<!-- <small class="d-block">Far far away, behind the word mountains</small> -->
-                </td>
-                <td>cnt</td>
-                <td>yyyymmdd</td>
-                <td><a href="#token&address" class="more">Details</a></td>
-            </tr>
+<% if (result.length>0){ 
+  for(i=0;i<result.length;i++){
+  %>
+  <tr scope="row">
+    <td><%=i+1%></td>
+    <td><%=result[i].address%> </td>
+    <td><%=result[i].token%></td>
+    <td><%=result[i].cnt%></td>
+    <td><%=result[i].yyyymmdd%></td>
+    <td><a href="https://scope.klaytn.com/account/<%=result[i].address%>?tabId=tokenBalance" target="_blank" class="more">Details</a></td>
+  </tr>
+  
+  <% 
+  }
+} else { %>
+<tr scope="row">
+  <td colspan="6"> no data </td>
+</tr>
+
+<% } %>
+              
           </tbody>
         </table>
+        <br/>
+        <a href="/">main</a>
       </div>
     </div>
   </div>
