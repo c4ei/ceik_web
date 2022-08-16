@@ -35,17 +35,37 @@ router.post('/holdlist', function(req, res, next) {
   else {
     let ref_addr = jsfnRepSQLinj(req.body.txt_address);
     let sql ="";
-    sql = sql +" SELECT address, token ,count(idx) cnt, DATE(regdate) yyyymmdd FROM ceik_lp "; 
+    sql = sql +" SELECT address, token , DATE(regdate) yyyymmdd ,`rank`, percent, totSupply FROM ceik_lp  "; 
     sql = sql +" WHERE address='"+ref_addr+"' ";
-    sql = sql +" GROUP BY address, token ,DATE(regdate) ";
-    sql = sql +" ORDER BY DATE(regdate) DESC ";
-    console.log("######### index.js 31  ######### "+getCurTimestamp()+" sql: "+sql);
+    sql = sql +" ORDER BY regdate desc , token ASC ";
+    console.log("######### index.js 41  ######### "+getCurTimestamp()+" sql: "+sql);
     let result = sync_connection.query(sql);
+
+    let sql2 ="";
+    sql2 = sql2 +" SELECT ";
+    sql2 = sql2 +"   sum(KLAY_cnt) KLAY_cnt, sum(oUSDT_cnt) oUSDT_cnt, sum(oETH_cnt) oETH_cnt, sum(oBNB_cnt) oBNB_cnt, sum(KSP_cnt) KSP_cnt ";
+    sql2 = sql2 +"   ,case when sum(KLAY_cnt)>0 then (sum(KLAY_cnt)/180)*100 else 0 end KLAY_per ";
+    sql2 = sql2 +"   ,case when sum(oUSDT_cnt)>0 then (sum(oUSDT_cnt)/180)*100 else 0 end oUSDT_per ";
+    sql2 = sql2 +"   ,case when sum(oETH_cnt)>0 then (sum(oETH_cnt)/180)*100 else 0 end oETH_per ";
+    sql2 = sql2 +"   ,case when sum(oBNB_cnt)>0 then (sum(oBNB_cnt)/180)*100 else 0 end oBNB_per ";
+    sql2 = sql2 +"   ,case when sum(KSP_cnt)>0 then (sum(KSP_cnt)/180)*100 else 0 end KSP_per ";
+    sql2 = sql2 +" FROM ( ";
+    sql2 = sql2 +"     SELECT ";  
+    sql2 = sql2 +"     sum(case when token='KLAY' then 1 else 0 end) AS KLAY_cnt, ";
+    sql2 = sql2 +"     sum(case when token='oUSDT' then 1 else 0 end) AS oUSDT_cnt, ";
+    sql2 = sql2 +"     sum(case when token='oETH' then 1 else 0 end) AS oETH_cnt, ";
+    sql2 = sql2 +"     sum(case when token='oBNB' then 1 else 0 end) AS oBNB_cnt, ";
+    sql2 = sql2 +"     sum(case when token='KSP' then 1 else 0 end) AS KSP_cnt ";
+    sql2 = sql2 +"     FROM ceik_lp   ";
+    sql2 = sql2 +"     WHERE address='"+ref_addr+"' ";
+    sql2 = sql2 +"     GROUP BY token  ";
+    sql2 = sql2 +" ) ds     ";
+    let result2 = sync_connection.query(sql2);
     if(result.length > 0){
-      console.log("######### index.js 228  ######### "+getCurTimestamp()+" result: "+result[0].address);
-      res.render('holdlist', { title: 'hold list', "result":result, "addr":ref_addr });
+      console.log("######### index.js 60  ######### "+getCurTimestamp()+" result: "+result[0].address);
+      res.render('holdlist', { title: 'hold list', "result":result, "result2":result2, "addr":ref_addr });
     }else{
-      res.render('holdlist', { title: 'hold list', "result":"nodata", "addr":ref_addr });
+      res.render('holdlist', { title: 'hold list', "result":"nodata","result2":"nodata", "addr":ref_addr });
     }
   }
 });

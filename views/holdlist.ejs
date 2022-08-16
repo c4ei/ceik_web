@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
     <title>CEIK HOLDER LIST</title>
@@ -39,14 +43,62 @@
           <a href="javascript:jsfn_myaddress();" style="color: #FFFFFF;">검색</a>
         </div>
         </form>
+
+      <% 
+        if (result2.length>0)
+        { 
+      %>
+      <div class="container" style="padding-top: 10px;padding-bottom: 10px;">
+        <% if(result2[0].KSP_cnt>0){ %> 
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=result2[0].KSP_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KSP_per%>%">
+            <%=result2[0].KSP_per%>% KSP
+            </div>
+        </div>
+        <% }%>
+
+        <%if(result2[0].KLAY_cnt>0){ %> 
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%=result2[0].KLAY_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KLAY_per%>%">
+            <%=result2[0].KLAY_per%>% KLAY
+          </div>
+        </div>
+        <% }%>
+        <%if(result2[0].oETH_cnt>0){ %> 
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%=result2[0].oETH_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oETH_per%>%">
+            <%=result2[0].oETH_per%>% oETH
+          </div>
+        </div>
+        <% }%>
+        <%if(result2[0].oUSDT_cnt>0){ %> 
+        <div class="progress">
+          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%=result2[0].oUSDT_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oUSDT_per%>%">
+            <%=result2[0].oUSDT_per%>% oUSDT
+          </div>
+        </div>
+        <% }%>
+        <%if(result2[0].oBNB_cnt>0){ %>
+        <div class="progress">
+          <div class="progress-bar progress-bar-bnb" role="progressbar" aria-valuenow="<%=result2[0].oBNB_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oBNB_per%>%">
+            <%=result2[0].oBNB_per%>% oBNB
+          </div>
+        </div>
+        <% }%>      
+      </div>
+      <%
+      }       
+      %>
         <table class="table table-striped custom-table">
           <thead>
             <tr>
               <th scope="col">No</th>
               <th scope="col">address</th>
               <th scope="col">token</th>
-              <th scope="col">cnt</th>
               <th scope="col">yyyymmdd</th>
+              <th scope="col">rank</th>
+              <th scope="col">percent</th>
+              <th scope="col">totSupply</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -58,8 +110,9 @@
     <td><%=i+1%></td>
     <td><%=result[i].address%> </td>
     <td><%=result[i].token%></td>
-    <td><%=result[i].cnt%></td>
-    <td><%=result[i].yyyymmdd%></td>
+    <td><%=result[i].yyyymmdd.toString().replace(/T/, ' ').replace(/\..+/, '').substr(0, 10)%></td>  <!--- .toString().replace(/T/, ' ').replace(/\..+/, '').substr(0, 10) --->
+    <td><%=result[i].rank%></td>
+    <td><%=result[i].percent%></td>
     <td><a href="https://scope.klaytn.com/account/<%=result[i].address%>?tabId=tokenBalance" target="_blank" class="more">Details</a></td>
   </tr>
   
