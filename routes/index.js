@@ -44,11 +44,11 @@ router.post('/holdlist', function(req, res, next) {
     let sql2 ="";
     sql2 = sql2 +" SELECT ";
     sql2 = sql2 +"   sum(KLAY_cnt) KLAY_cnt, sum(oUSDT_cnt) oUSDT_cnt, sum(oETH_cnt) oETH_cnt, sum(oBNB_cnt) oBNB_cnt, sum(KSP_cnt) KSP_cnt ";
-    sql2 = sql2 +"   ,case when sum(KLAY_cnt)>0 then (sum(KLAY_cnt)/180)*100 else 0 end KLAY_per ";
-    sql2 = sql2 +"   ,case when sum(oUSDT_cnt)>0 then (sum(oUSDT_cnt)/180)*100 else 0 end oUSDT_per ";
-    sql2 = sql2 +"   ,case when sum(oETH_cnt)>0 then (sum(oETH_cnt)/180)*100 else 0 end oETH_per ";
-    sql2 = sql2 +"   ,case when sum(oBNB_cnt)>0 then (sum(oBNB_cnt)/180)*100 else 0 end oBNB_per ";
-    sql2 = sql2 +"   ,case when sum(KSP_cnt)>0 then (sum(KSP_cnt)/180)*100 else 0 end KSP_per ";
+    sql2 = sql2 +"   ,case when sum(KLAY_cnt)>0 then (sum(KLAY_cnt)/540)*100 else 0 end KLAY_per ";
+    sql2 = sql2 +"   ,case when sum(oUSDT_cnt)>0 then (sum(oUSDT_cnt)/540)*100 else 0 end oUSDT_per ";
+    sql2 = sql2 +"   ,case when sum(oETH_cnt)>0 then (sum(oETH_cnt)/540)*100 else 0 end oETH_per ";
+    sql2 = sql2 +"   ,case when sum(oBNB_cnt)>0 then (sum(oBNB_cnt)/540)*100 else 0 end oBNB_per ";
+    sql2 = sql2 +"   ,case when sum(KSP_cnt)>0 then (sum(KSP_cnt)/540)*100 else 0 end KSP_per ";
     sql2 = sql2 +" FROM ( ";
     sql2 = sql2 +"     SELECT ";  
     sql2 = sql2 +"     sum(case when token='KLAY' then 1 else 0 end) AS KLAY_cnt, ";

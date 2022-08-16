@@ -19,11 +19,11 @@
   </head>
   <body>
   
-  <div class="content">
+  <div class="content" style="padding-top: 10px;">
     <div class="container">
       <h2 class="mb-5">CEIK HOLDER LIST</h2>
   
-      <div class="table-responsive">
+      <div class="table-responsive" style="border:0px;">
         <script>
           function jsfn_myaddress(){
             let maf = document.getElementById("mainfrom");
@@ -51,7 +51,7 @@
       <div class="container" style="padding-top: 10px;padding-bottom: 10px;">
         <% if(result2[0].KSP_cnt>0){ %> 
         <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=result2[0].KSP_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KSP_per%>%">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=result2[0].KSP_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KSP_per%>%;color:#000000;">
             <%=result2[0].KSP_per%>% KSP
             </div>
         </div>
@@ -59,28 +59,28 @@
 
         <%if(result2[0].KLAY_cnt>0){ %> 
         <div class="progress">
-          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%=result2[0].KLAY_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KLAY_per%>%">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%=result2[0].KLAY_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].KLAY_per%>%;color:#000000;">
             <%=result2[0].KLAY_per%>% KLAY
           </div>
         </div>
         <% }%>
         <%if(result2[0].oETH_cnt>0){ %> 
         <div class="progress">
-          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%=result2[0].oETH_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oETH_per%>%">
+          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%=result2[0].oETH_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oETH_per%>%;color:#000000;">
             <%=result2[0].oETH_per%>% oETH
           </div>
         </div>
         <% }%>
         <%if(result2[0].oUSDT_cnt>0){ %> 
         <div class="progress">
-          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%=result2[0].oUSDT_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oUSDT_per%>%">
+          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%=result2[0].oUSDT_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oUSDT_per%>%;color:#000000;">
             <%=result2[0].oUSDT_per%>% oUSDT
           </div>
         </div>
         <% }%>
         <%if(result2[0].oBNB_cnt>0){ %>
         <div class="progress">
-          <div class="progress-bar progress-bar-bnb" role="progressbar" aria-valuenow="<%=result2[0].oBNB_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oBNB_per%>%">
+          <div class="progress-bar progress-bar-bnb" role="progressbar" aria-valuenow="<%=result2[0].oBNB_per%>" aria-valuemin="0" aria-valuemax="100" style="width:<%=result2[0].oBNB_per%>%;color:#000000;">
             <%=result2[0].oBNB_per%>% oBNB
           </div>
         </div>
