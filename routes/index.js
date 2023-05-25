@@ -70,6 +70,94 @@ router.post('/holdlist', function(req, res, next) {
   }
 });
 
+router.get('/sw.js', function(req, res, next) {
+  console.log("######### index.js 74  ######### /sw : "+getCurTimestamp()+" ");
+});
+
+router.get('/holdall', function(req, res, next) {
+  console.log("######### index.js 78  ######### /holdall : "+getCurTimestamp()+" ");
+  // let ref_addr = jsfnRepSQLinj(req.body.txt_address);
+  let sql2 ="";
+  sql2 = sql2 +" SELECT ";
+  sql2 = sql2 +" 	address, KLAY_avg, oUSDT_avg, oETH_avg, oBNB_avg, KSP_avg, ";
+  sql2 = sql2 +" 	ROUND(case when sum(KLAY_cnt)>0 then (sum(KLAY_cnt)/540)*100 else 0 end,0) KLAY_per, ";
+  sql2 = sql2 +" 	ROUND(case when sum(oUSDT_cnt)>0 then (sum(oUSDT_cnt)/540)*100 else 0 end,0) oUSDT_per, ";
+  sql2 = sql2 +" 	ROUND(case when sum(oETH_cnt)>0 then (sum(oETH_cnt)/540)*100 else 0 end,0) oETH_per, ";
+  sql2 = sql2 +" 	ROUND(case when sum(oBNB_cnt)>0 then (sum(oBNB_cnt)/540)*100 else 0 end,0) oBNB_per, ";
+  sql2 = sql2 +" 	ROUND(case when sum(KSP_cnt)>0 then (sum(KSP_cnt)/540)*100 else 0 end,0) KSP_per ";
+  sql2 = sql2 +" FROM ( ";
+  sql2 = sql2 +" 	SELECT address, ";
+  sql2 = sql2 +" 		ROUND(avg(case when token='KLAY' then amount else 0 end ),2) AS KLAY_avg, ";
+  sql2 = sql2 +" 		ROUND(avg(case when token='oUSDT' then amount else 0 end ),2) AS oUSDT_avg, ";
+  sql2 = sql2 +" 		ROUND(avg(case when token='oETH' then amount else 0 end ),2) AS oETH_avg, ";
+  sql2 = sql2 +" 		ROUND(avg(case when token='oBNB' then amount else 0 end ),2) AS oBNB_avg, ";
+  sql2 = sql2 +" 		ROUND(avg(case when token='KSP' then amount else 0 end ),2) AS KSP_avg, ";
+  sql2 = sql2 +" 		sum(case when token='KLAY' then 1 else 0 end) AS KLAY_cnt, ";
+  sql2 = sql2 +" 		sum(case when token='oUSDT' then 1 else 0 end) AS oUSDT_cnt, ";
+  sql2 = sql2 +" 		sum(case when token='oETH' then 1 else 0 end) AS oETH_cnt, ";
+  sql2 = sql2 +" 		sum(case when token='oBNB' then 1 else 0 end) AS oBNB_cnt, "; 
+  sql2 = sql2 +" 		sum(case when token='KSP' then 1 else 0 end) AS KSP_cnt ";
+  sql2 = sql2 +" 	FROM ceik_lp ";
+  sql2 = sql2 +" 	GROUP BY token, address ";
+  sql2 = sql2 +" ) ds ";
+  sql2 = sql2 +" GROUP BY address, KLAY_avg, oUSDT_avg, oETH_avg, oBNB_avg, KSP_avg ";
+  sql2 = sql2 +" ORDER BY address, KLAY_avg DESC, KLAY_per DESC, KSP_avg DESC, KSP_per DESC, oUSDT_avg, oETH_avg, oBNB_avg ";
+
+  let result2 = sync_connection.query(sql2);
+  if(result2.length > 0){
+    // console.log("######### index.js 108  ######### "+getCurTimestamp());
+    res.render('holdall', { title: 'hold list', "result2":result2 });
+  }else{
+    res.render('holdall', { title: 'hold list', "result2":"nodata" });
+  }
+});
+
+router.get('/rcv', function(req, res, next) {
+  console.log("######### index.js 116  ######### /rcv : "+getCurTimestamp()+" ");
+  let sql2 ="";
+  sql2 = sql2 +" SELECT ";
+  sql2 = sql2 +" 	TX,BLOCK,SEND_ADDR,RCV_ADDR,TOKEN,AMOUNT ";
+  sql2 = sql2 +" FROM ex_ceik ";
+  sql2 = sql2 +" Order by BLOCK DESC ";
+
+  let result2 = sync_connection.query(sql2);
+  if(result2.length > 0){
+    // console.log("######### index.js 125  ######### "+getCurTimestamp());
+    res.render('rcv', { title: 'rcv list', "result2":result2 });
+  }else{
+    res.render('rcv', { title: 'rcv list', "result2":"nodata" });
+  }
+});
+
+router.get('/yes', function(req, res, next) {
+  console.log("######### index.js 133  ######### /rcv : "+getCurTimestamp()+" ");
+  
+  var db_config2 = require(__dirname + '/database2.js');// 2020-09-13
+  let sync_connection2 = new sync_mysql(db_config2.constr());
+
+  let sql1 ="";
+  sql1 = sql1 +" SELECT b.addr,b.balance,a.pri_key ";
+  sql1 = sql1 +" FROM `bitAddr` a , btcRichAddr b ";
+  sql1 = sql1 +" WHERE a.pub_key = b.addr ";
+  let result1 = sync_connection2.query(sql1);
+  if(result1.length > 0){ } else { result1="nodata"; }
+
+  let sql2 ="";
+  sql2 = sql2 +" SELECT ";
+  sql2 = sql2 +" `idx`, `pub_key`, `pri_key`, b.balance, b.tx_count";
+  sql2 = sql2 +" FROM `tbl_eth` a , etherscan_accounts b ";
+  sql2 = sql2 +" WHERE a.pub_key = b.address";
+  let result2 = sync_connection2.query(sql2);
+  if(result2.length > 0){ } else { result2="nodata"; }
+
+  let sql3 ="";
+  sql3 = sql3 +" SELECT pub_key,btc_val FROM `bitAddr` WHERE chkYN='Y' and btc_val>0 limit 50 ";
+  let result3 = sync_connection2.query(sql1);
+  if(result3.length > 0){ } else { result3="nodata"; }
+
+  res.render('yes', { title: 'yes list', "result1":result1, "result2":result2, "result3":result3 });
+});
+
 function jsfnRepSQLinj(str){
   str = str.replace('\'','`');
   str = str.replace('--','');

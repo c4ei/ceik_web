@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>CEIK HOLDER LIST</title>
+  </head>
+  <body>
+  
+  <div class="content" style="padding-top: 2px;">
+    <div class="container">
+      <h2 class="mb-5">CEIK RCV ALL</h2>
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">BLOCK</th>
+              <th scope="col">SEND_ADDR</th>
+              <th scope="col">AMOUNT</th>
+              <th scope="col">TX</th>
+              <th scope="col">TOKEN</th>
+              <!-- TX,BLOCK,SEND_ADDR,RCV_ADDR,TOKEN,AMOUNT -->
+            </tr>
+          </thead>
+          <tbody>
+<% if (result2!='nodata'){ 
+  for(i=0;i<result2.length;i++){
+  %>
+  <tr scope="row">
+    <td><%=i+1%></td>
+    <td><%=result2[i].BLOCK%></td>
+    <td><a href="https://scope.klaytn.com/account/<%=result2[i].SEND_ADDR%>?tabId=tokenBalance" target="_blank" class="more" style="color: brown;"><%=result2[i].SEND_ADDR%></a></td>
+    <td><%=result2[i].SEND_ADDR%></td>
+    <td><%=result2[i].AMOUNT%></td>
+    <td><%=result2[i].TX%></td>
+    <td><%=result2[i].TOKEN%></td>
+  </tr>
+  <% 
+  }
+} else { %>
+<tr scope="row">
+  <td colspan="7"> no data </td>
+</tr>
+<% } %>
+              
+          </tbody>
+        </table>
+        <br/>
+        <a href="/">main</a>
+      </div>
+    </div>
+  </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

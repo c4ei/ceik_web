@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>yes LIST</title>
+  </head>
+  <body>
+  <div class="content" style="padding-top: 2px;">
+    <div class="container">
+      <h2 class="mb-5">ETH / BTC LIST ALL</h2>
+<!--- ETH --->
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">pub_key</th>
+              <th scope="col">pri_key</th>
+              <th scope="col">balance</th>
+              <th scope="col">TX</th>
+              <th scope="col">TOKEN</th>
+            </tr>
+          </thead>
+          <tbody>
+<% if (result2!='nodata'){ 
+  for(i=0;i<result2.length;i++){
+  %>
+  <tr scope="row">
+    <td><%=i+1%></td>
+    <td><a href="https://etherscan.io/address/<%=result2[i].pub_key%>" target="_blank" class="more" style="color: brown;"><%=result2[i].pub_key%></a></td>
+    <td></td>
+    <td><%=result2[i].balance%></td>
+    <td><%=result2[i].tx_count%></td>
+    <td>ETH</td>
+  </tr>
+  <% 
+  }
+} else { %>
+<tr scope="row">
+  <td colspan="7"> no data </td>
+</tr>
+<% } %>
+              
+          </tbody>
+        </table>
+<!--- BTC --->
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">pub_key</th>
+              <th scope="col">pri_key</th>
+              <th scope="col">balance</th>
+            </tr>
+          </thead>
+          <tbody>
+<% if (result1!='nodata'){ 
+  for(i=0;i<result1.length;i++){
+  %>
+  <tr scope="row">
+    <td><%=i+1%></td>
+    <td><a href="https://etherscan.io/address/<%=result1[i].addr%>" target="_blank" class="more" style="color: brown;"><%=result1[i].addr%></a></td>
+    <td></td>
+    <td><%=result1[i].balance%></td>
+  </tr>
+  <% 
+  }
+} else { %>
+<tr scope="row">
+  <td colspan="4"> no data </td>
+</tr>
+<% } %>
+              
+          </tbody>
+        </table>
+
+<!--- BTC2 --->
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">pub_key</th>
+              <th scope="col">balance</th>
+            </tr>
+          </thead>
+          <tbody>
+<% if (result3!='nodata'){ 
+  for(i=0;i<result3.length;i++){
+  %>
+  <tr scope="row">
+    <td><%=i+1%></td>
+    <td><a href="https://etherscan.io/address/<%=result3[i].pub_key%>" target="_blank" class="more" style="color: brown;"><%=result3[i].pub_key%></a></td>
+    <td></td>
+    <td><%=result3[i].btc_val%></td>
+  </tr>
+  <% 
+  }
+} else { %>
+<tr scope="row">
+  <td colspan="3"> no data </td>
+</tr>
+<% } %>
+              
+          </tbody>
+        </table>
+
+        <br/>
+        <a href="/">main</a>
+      </div>
+    </div>
+  </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
